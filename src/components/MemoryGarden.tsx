@@ -15,8 +15,8 @@ const MemoryGarden: React.FC<MemoryGardenProps> = ({ isDarkMode }) => {
         id: 'photo1',
         type: 'star',
         title: 'Mi Madre Hermosa',
-        content: 'Aquí está ella, radiante como siempre, iluminando nuestras vidas con su presencia...',
-        image: 'https://i.postimg.cc/G2DHB08v/upscalemedia-transformed-6.jpg',
+        content: 'Aquí estamos juntos, compartiendo uno de esos momentos especiales que atesoraré por siempre. Tu abrazo, tu sonrisa, tu amor incondicional... cada instante a tu lado fue un regalo precioso que guardo en mi corazón.',
+        image: 'https://i.postimg.cc/854RKPFN/Whats-App-Image-2025-04-21-at-00-28-48.jpg',
         author: 'Otto',
         createdAt: new Date(),
       },
@@ -118,31 +118,39 @@ const MemoryGarden: React.FC<MemoryGardenProps> = ({ isDarkMode }) => {
           container.appendChild(nebula);
         }
       } else {
-        // Create sunny day
+        // Create sunny day elements
+        const sunContainer = document.createElement('div');
+        sunContainer.className = 'sun-container';
+        
         const sun = document.createElement('div');
         sun.className = 'sun animate-sun-rays';
-        sun.style.top = '10%';
-        sun.style.right = '10%';
-        container.appendChild(sun);
+        sunContainer.appendChild(sun);
+        
+        const sunGlow = document.createElement('div');
+        sunGlow.className = 'sun-glow';
+        sunContainer.appendChild(sunGlow);
+        
+        container.appendChild(sunContainer);
 
-        // Add clouds
-        for (let i = 0; i < 6; i++) {
-          const cloud = document.createElement('div');
-          cloud.className = 'cloud animate-cloud';
-          cloud.style.top = `${Math.random() * 40 + 5}%`;
-          cloud.style.animationDelay = `${Math.random() * 30}s`;
-          container.appendChild(cloud);
-        }
+        // Add clouds with different sizes and speeds
+        const cloudTypes = ['small', 'medium', 'large'];
+        const cloudPositions = [15, 25, 35, 45];
+        
+        cloudTypes.forEach((size, typeIndex) => {
+          cloudPositions.forEach((position, posIndex) => {
+            const cloud = document.createElement('div');
+            cloud.className = `cloud cloud-${size} animate-cloud`;
+            cloud.style.top = `${position + (Math.random() * 10)}%`;
+            cloud.style.animationDelay = `${(typeIndex + posIndex) * 5}s`;
+            cloud.style.animationDuration = `${30 + (typeIndex * 10)}s`;
+            container.appendChild(cloud);
+          });
+        });
 
-        // Add birds
-        for (let i = 0; i < 4; i++) {
-          const bird = document.createElement('div');
-          bird.className = 'bird animate-bird';
-          bird.innerHTML = '🕊️';
-          bird.style.top = `${Math.random() * 30 + 10}%`;
-          bird.style.animationDelay = `${Math.random() * 10}s`;
-          container.appendChild(bird);
-        }
+        // Add rainbow effect
+        const rainbow = document.createElement('div');
+        rainbow.className = 'rainbow';
+        container.appendChild(rainbow);
       }
     };
 
@@ -160,7 +168,7 @@ const MemoryGarden: React.FC<MemoryGardenProps> = ({ isDarkMode }) => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-pink-500 shadow-2xl"
+          className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-pink-500 shadow-2xl hover:scale-105 transition-transform duration-300"
         >
           <img
             src="https://i.postimg.cc/8PSr6Cbc/upscalemedia-transformed-5.jpg"
@@ -172,7 +180,7 @@ const MemoryGarden: React.FC<MemoryGardenProps> = ({ isDarkMode }) => {
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className={`text-3xl md:text-4xl font-serif mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
+          className={`text-3xl md:text-4xl font-serif mb-2 ${isDarkMode ? 'text-white' : 'text-gray-800'} text-shadow-lg`}
         >
           Flor María Martínez Rodríguez
         </motion.h1>
@@ -195,42 +203,43 @@ const MemoryGarden: React.FC<MemoryGardenProps> = ({ isDarkMode }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
             whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-            className={`glass-effect rounded-lg p-6 flex flex-col items-center space-y-4 ${
-              isDarkMode 
-                ? 'bg-white/10 text-white' 
-                : 'bg-white/60 text-gray-800'
-            }`}
+            className={`glass-effect ${isDarkMode ? 'dark' : 'light'} rounded-lg p-6 flex flex-col items-center space-y-4`}
           >
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.5 }}
+              className="transform-gpu"
             >
               {memory.type === 'flower' && (
-                <Flower2 className={`w-12 h-12 ${isDarkMode ? 'text-pink-400' : 'text-pink-500'}`} />
+                <Flower2 className={`w-12 h-12 ${isDarkMode ? 'text-pink-400' : 'text-pink-500'} drop-shadow-lg`} />
               )}
               {memory.type === 'tree' && (
-                <Tree className={`w-12 h-12 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+                <Tree className={`w-12 h-12 ${isDarkMode ? 'text-green-400' : 'text-green-600'} drop-shadow-lg`} />
               )}
               {memory.type === 'star' && (
-                <Star className={`w-12 h-12 ${isDarkMode ? 'text-yellow-400' : 'text-yellow-500'} animate-pulse`} />
+                <Star className={`w-12 h-12 ${isDarkMode ? 'text-yellow-400' : 'text-yellow-500'} animate-pulse drop-shadow-lg`} />
               )}
             </motion.div>
-            <h3 className="text-xl font-serif">
+            <h3 className={`text-xl font-serif ${isDarkMode ? 'text-white' : 'text-gray-800'} text-shadow`}>
               {memory.title}
             </h3>
             {memory.image && (
-              <motion.img
+              <motion.div
                 whileHover={{ scale: 1.05 }}
-                src={memory.image}
-                alt={memory.title}
-                className="w-full h-48 object-cover rounded-lg shadow-md"
-              />
+                className="w-full h-48 rounded-lg overflow-hidden shadow-xl"
+              >
+                <img
+                  src={memory.image}
+                  alt={memory.title}
+                  className="w-full h-full object-cover transform transition-transform hover:scale-110 duration-500"
+                />
+              </motion.div>
             )}
-            <p className={`text-sm md:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            <p className={`text-sm md:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'} leading-relaxed`}>
               {memory.content}
             </p>
             {memory.author && (
-              <p className={`text-sm italic ${isDarkMode ? 'text-pink-400' : 'text-pink-500'}`}>
+              <p className={`text-sm italic ${isDarkMode ? 'text-pink-400' : 'text-pink-500'} font-medium`}>
                 Con amor, {memory.author}
               </p>
             )}
