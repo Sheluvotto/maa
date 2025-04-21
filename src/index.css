@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(-100px) translateY(-100px) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200px) translateY(200px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes cloud-drift {
+  from { transform: translateX(-100%) rotate(0deg); }
+  50% { transform: translateX(50vw) rotate(2deg); }
+  to { transform: translateX(100vw) rotate(0deg); }
+}
+
+@keyframes bird-fly {
+  0% { transform: translateX(-100%) translateY(0) scale(1); }
+  25% { transform: translateX(25vw) translateY(-20px) scale(1.1); }
+  50% { transform: translateX(50vw) translateY(0) scale(1); }
+  75% { transform: translateX(75vw) translateY(-15px) scale(0.9); }
+  100% { transform: translateX(100vw) translateY(0) scale(1); }
+}
+
+@keyframes sun-rays {
+  0% { transform: rotate(0deg); opacity: 0.5; }
+  50% { transform: rotate(180deg); opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0.5; }
+}
+
+@keyframes nebula-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-shooting-star {
+  animation: shooting-star 2s linear infinite;
+}
+
+.animate-cloud {
+  animation: cloud-drift 30s linear infinite;
+}
+
+.animate-bird {
+  animation: bird-fly 20s linear infinite;
+}
+
+.animate-sun-rays {
+  animation: sun-rays 20s linear infinite;
+}
+
+.animate-nebula {
+  animation: nebula-pulse 8s ease-in-out infinite;
+}
+
+.starry-night {
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  background-attachment: fixed;
+}
+
+.sunny-day {
+  background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  background-attachment: fixed;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #fff, 0 0 8px #fff;
+}
+
+.shooting-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, #fff, transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px #fff);
+}
+
+.nebula {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at center, 
+    rgba(147, 112, 219, 0.2),
+    rgba(199, 125, 255, 0.1),
+    transparent 70%);
+  border-radius: 50%;
+  filter: blur(8px);
+}
+
+.cloud {
+  position: absolute;
+  width: 120px;
+  height: 50px;
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.6));
+  border-radius: 25px;
+  filter: blur(3px);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 60px;
+  height: 60px;
+  top: -25px;
+  left: 15px;
+}
+
+.cloud::after {
+  width: 40px;
+  height: 40px;
+  top: -15px;
+  right: 15px;
+}
+
+.sun {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at center,
+    #fff7e6,
+    #ffdb4d,
+    #ff9900);
+  border-radius: 50%;
+  box-shadow: 0 0 60px #ff9900;
+}
+
+.sun::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  bottom: -30px;
+  background: radial-gradient(circle at center,
+    rgba(255, 153, 0, 0.4),
+    transparent 70%);
+  border-radius: 50%;
+}
+
+.bird {
+  position: absolute;
+  font-size: 24px;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  transform-origin: center;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .memory-card {
+    @apply relative overflow-hidden rounded-lg shadow-lg transition-all duration-300;
+  }
+  
+  .memory-card:hover {
+    @apply transform scale-105;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/10 border border-white/20;
+  }
+}
+
+@media (max-width: 640px) {
+  .cloud {
+    width: 80px;
+    height: 35px;
+  }
+
+  .sun {
+    width: 60px;
+    height: 60px;
+  }
+
+  .nebula {
+    width: 100px;
+    height: 100px;
+  }
+}
